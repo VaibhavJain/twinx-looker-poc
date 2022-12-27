@@ -26,3 +26,7 @@ persist_with: twinx-sales_default_datagroup
 # Each joined view also needs to define a primary key.
 
 explore: sales {}
+
+explore: gaming_sales {}
+
+explore: banking_details {}
