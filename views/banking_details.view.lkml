@@ -13,12 +13,14 @@ view: banking_details {
 
   dimension: age {
     type: number
+    drill_fields: [balance]
     sql: ${TABLE}.age ;;
   }
 
   dimension: age_tier {
     type: tier
-    tiers: [18, 25, 35, 45, 55, 65, 75, 90]
+    tiers: [18, 25, 35, 45, 55, 65, 75, 85, 95]
+    drill_fields: [age,balance_tier]
     style: integer
     sql: ${age} ;;
   }
@@ -26,6 +28,20 @@ view: banking_details {
   dimension: balance {
     type: number
     sql: ${TABLE}.balance ;;
+  }
+
+  dimension: balance_tier {
+    type: tier
+    tiers: [0,50,250,500,1000,1500]
+    drill_fields: [balance]
+    style: integer
+    sql: ${balance} ;;
+  }
+
+  measure: balance_interest {
+    type: number
+    value_format_name: percent_2
+    sql: if((${balance}>=0),((${balance} * 5 * 5 ) / 10000),0) ;;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
@@ -64,7 +80,14 @@ view: banking_details {
 
   dimension: duration {
     type: number
+    drill_fields: [count]
     sql: ${TABLE}.duration ;;
+  }
+
+  dimension: duration_in_months {
+    type: number
+    value_format_name: decimal_0
+    sql: (${duration} % 365) / 30 ;;
   }
 
   dimension: duration_tier {

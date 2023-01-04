@@ -30,3 +30,19 @@ explore: sales {}
 explore: gaming_sales {}
 
 explore: banking_details {}
+
+explore: safety_stock {
+  join: lead_time {}
+}
+
+explore: lead_time {}
+
+explore: sales_data_set {}
+
+explore: covid_worldometers {}
+
+explore: abc_inventory_accuracy {}
+
+explore: abc_inventory_turnover {}
+
+explore: abc_lead_time {}
