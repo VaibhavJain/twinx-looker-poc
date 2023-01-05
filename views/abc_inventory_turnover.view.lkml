@@ -30,9 +30,10 @@ view: abc_inventory_turnover {
     sql: ${average_stock_cogs__} ;;
   }
 
-  dimension: product {
+  dimension: item {
     type: string
-    sql: ${TABLE}.Product ;;
+    primary_key: yes
+    sql: ${TABLE}.Item ;;
   }
 
   dimension: sales_cogs__ {

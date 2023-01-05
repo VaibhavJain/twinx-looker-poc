@@ -41,7 +41,14 @@ explore: sales_data_set {}
 
 explore: covid_worldometers {}
 
-explore: abc_inventory_accuracy {}
+explore: abc_inventory_accuracy {
+  join: abc_inventory_turnover{
+    foreign_key: abc_inventory_accuracy.item
+    # relationship: many_to_many
+
+    # type: cross
+  }
+}
 
 explore: abc_inventory_turnover {}
 

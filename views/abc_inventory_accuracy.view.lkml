@@ -35,6 +35,11 @@ view: abc_inventory_accuracy {
     sql: ${TABLE}.Inventory_accuracy ;;
   }
 
+  measure: derived_inventory_accuray{
+    type: string
+    sql: if(${it_stock_qty} = ${stock_qty_check}, "Yes", "No") ;;
+  }
+
   dimension: it_stock__ {
     type: number
     sql: ${TABLE}.IT_Stock__ ;;
@@ -48,11 +53,17 @@ view: abc_inventory_accuracy {
   dimension: item {
     type: string
     sql: ${TABLE}.Item ;;
+    primary_key: yes
   }
 
   dimension: qty_gap {
     type: number
     sql: ${TABLE}.Qty_gap ;;
+  }
+
+  measure: derived_qty_gap {
+    type: number
+    sql: ${stock_qty_check} - ${it_stock_qty} ;;
   }
 
   dimension: sector {
@@ -73,6 +84,11 @@ view: abc_inventory_accuracy {
   dimension: value___gap {
     type: number
     sql: ${TABLE}.Value___gap ;;
+  }
+
+  measure: derived_value_gap {
+    type: number
+    sql: ${derived_qty_gap} * ${cogs_price__} ;;
   }
 
   measure: count {
